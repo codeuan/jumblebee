@@ -6,7 +6,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="dictation" element={Dictation} />
+        <Route path="/" element={<Dictation />} />
+        <Route path="/dictation" element={<Dictation />} />
       </Routes>
     </BrowserRouter>
   );

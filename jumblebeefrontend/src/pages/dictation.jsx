@@ -1,6 +1,19 @@
-// useDictation.js
+//dictation.jsx
 import { useCallback, useRef, useState } from "react";
+import TextRender from "./textrender";
 
+export default function Dictation() {
+  const dictation = useDictation({
+    wsPath: "ws://127.0.0.1:8000/ws/dictation/",
+  });
+
+  return (
+    <TextRender
+      dictation={dictation}
+      correctWord="jumble"
+    />
+  );
+}
 
 function downsampleBuffer(float32Buffer, inputSampleRate, targetSampleRate) {
 
@@ -67,7 +80,11 @@ export function useDictation({ wsPath = "/ws/dictation/", targetSampleRate = 160
 
     const scheme = window.location.protocol === "https:" ? "wss" : "ws";
     const host = window.location.host;
-    const wsUrl = `${scheme}://${host}${wsPath}`;
+
+    const wsUrl =
+      wsPath.startsWith("ws://") || wsPath.startsWith("wss://")
+        ? wsPath
+        : `${scheme}://${host}${wsPath}`;
     //translate the website URL into the WebSocket URL.
   
     const ws = new WebSocket(wsUrl); //begin a WebSocket connection.

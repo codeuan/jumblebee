@@ -3,15 +3,15 @@ import asyncio
 import json
 import os
 from channels.generic.websocket import AsyncWebsocketConsumer
-
+from pathlib import Path
 from vosk import Model, KaldiRecognizer, SetLogLevel
 
-SetLogLevel(0)
+SetLogLevel(0) #enable Vosk debugging messages.
 
 # Load model once at import time (important for performance)
-VOSK_MODEL_PATH = os.environ.get("VOSK_MODEL_PATH", "vosk-model")
-model = Model(VOSK_MODEL_PATH)
+VOSK_MODEL_PATH = r"C:\Users\cmdp7\OneDrive\Desktop\JumbleBee\vosk-model-en-us-0.22-lgraph\vosk-model-en-us-0.22-lgraph"
 
+model = Model(VOSK_MODEL_PATH)
 
 class SpeechToTextConsumer(AsyncWebsocketConsumer):
     async def connect(self):
