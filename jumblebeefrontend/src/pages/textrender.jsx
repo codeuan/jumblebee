@@ -3,18 +3,18 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 
 function normalizeToSingleLetter(raw) {
-  if (!raw) return { letter: null, reason: "empty" };
+  if (!raw) return { letter: null, reason: "empty" }; //if no letter given, return null.
 
   const cleaned = String(raw)
     .trim()
     .toLowerCase()
     .replace(/[^\w\s-]/g, " ")
     .replace(/\s+/g, " ")
-    .trim();
+    .trim(); //remove spaces from start and end, change to lower case, replace punctuation with spaces.
 
   if (cleaned.length === 1 && cleaned >= "a" && cleaned <= "z") {
     return { letter: cleaned, reason: "single-letter" };
-  }
+  } //if character is a single letter, accept it as such. note: reason in this scenario doesn't actually have a practical use but is included for consistency,
 
   const map = new Map([
     ["ay", "a"],
@@ -51,31 +51,31 @@ function normalizeToSingleLetter(raw) {
     ["why", "y"],
     ["zed", "z"],
     ["zee", "z"],
-  ]);
+  ]); //table of misheard words corresponding to letters.
 
   if (map.has(cleaned)) {
     return { letter: map.get(cleaned), reason: "mapped" };
-  }
+  } //if the word was in the misheard letter table, return that.
 
   return { letter: null, reason: "not-one-letter" };
-}
+} //if more than one letter was spoken (e.g. a full word), return an error.
 
 export default function TextRender({ dictation, correctWord = "jumble" }) {
   const correctWordArray = useMemo(
     () => correctWord.toLowerCase().split(""),
     [correctWord]
-  );
+  ); //split correct word into letters.
 
   const [guessedLetters, setGuessedLetters] = useState(
     Array.from({ length: correctWordArray.length }, () => "")
-  );
+  ); //make an empty array the same length as the correct word.
 
-  const [cursor, setCursor] = useState(0);
-  const [status, setStatus] = useState("");
+  const [cursor, setCursor] = useState(0); //current index in the array being filled.
+  const [status, setStatus] = useState(""); //message shown to user.
 
-  const lastProcessedTranscriptRef = useRef("");
+  const lastProcessedTranscriptRef = useRef(""); //store the last spoken word to avoid double processing.
 
-  const { finalTranscript, isRecording, start, stop } = dictation;
+  const { finalTranscript, isRecording, start, stop } = dictation; 
   
   useEffect(() => {
     if (!finalTranscript) return;
