@@ -35,6 +35,8 @@ function normalizeToSingleLetter(raw) {
     ["ell", "l"],
     ["em", "m"],
     ["en", "n"],
+    ["an", "n"],
+    ["and", "n"],
     ["oh", "o"],
     ["owe", "o"],
     ["pee", "p"],
@@ -113,7 +115,7 @@ export default function TextRender({ dictation, correctWord = "jumble" }) {
     setGuessedLetters(Array.from({ length: correctWordArray.length }, () => ""));
     setCursor(0);
     setStatus("");
-    lastProcessedTranscriptRef.current = "";
+    lastProcessedTranscriptRef.current = finalTranscript;
   };
 
   const guessedString = guessedLetters
