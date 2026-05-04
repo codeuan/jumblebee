@@ -10,7 +10,7 @@ export default function Dictation() {
   return (
     <TextRender
       dictation={dictation}
-      correctWord="jumble"
+      correctWord="fuchsia"
     />
   );
 }
