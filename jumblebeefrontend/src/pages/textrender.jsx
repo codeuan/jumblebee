@@ -192,8 +192,10 @@ const guessedString = guessedLetters.map((letter) => (letter ? letter.toUpperCas
       </button>
       <audio ref={audioRef} src="/audio/fuchsia.m4a" preload="auto" />
     </div>
+    {IS_ADMIN ? (
+  <p>Warning: administrator mode is enabled.</p>
+) : null}
     
-
       <div
         style={{
           fontSize: 32,
