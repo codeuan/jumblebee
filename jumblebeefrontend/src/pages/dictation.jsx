@@ -10,7 +10,8 @@ export default function Dictation() {
   return (
     <TextRender
       dictation={dictation}
-      correctWord="fuchsia"
+      correctWord={currentQuestion.word}
+      isAdmin={IS_ADMIN}
     />
   );
 }
